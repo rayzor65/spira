@@ -134,7 +134,14 @@ return [
     |
     */
 
-    'transformer' => 'Dingo\Api\Transformer\FractalTransformer',
+    // Set the array serializer
+    'transformer' => function() {
+        $fractal = new League\Fractal\Manager;
+
+        $fractal->setSerializer(new \Fourmation\Serializer());
+
+        return new Dingo\Api\Transformer\FractalTransformer($fractal, 'include', ',');
+    },
 
     /*
     |--------------------------------------------------------------------------
